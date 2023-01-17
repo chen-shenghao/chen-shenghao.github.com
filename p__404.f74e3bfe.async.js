@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[571],{9826:function(i,t,n){n.r(t),n.d(t,{default:function(){return l}});var s=n(17141),c=n(61534),u=n(86074);function l(){return(0,u.jsxs)("main",{className:"text-center",children:[(0,u.jsx)("h2",{children:"404"}),(0,u.jsx)(s.zx,{onClick:function(){c.history.replace("/")},children:"\u8FD4\u56DE\u9996\u9875"})]})}}}]);
