@@ -1,4 +1,5 @@
 import Services from "@/apis";
+import { CONST_KEYS } from "@/const";
 import {
   Avatar,
   Card,
@@ -72,6 +73,17 @@ const UserPage = () => {
       headImageArr: [{ url: data?.headImage }],
     });
   }, [data?.headImage, data?.name, form, run]);
+  /** 退出 */
+  const onLogout = useCallback(async () => {
+    Modal.confirm({
+      title: "确认退出？",
+      onConfirm: async () => {
+        await Services.auth.logout();
+        localStorage.removeItem(CONST_KEYS.TOKEN);
+        history.replace(CONST_KEYS.LOGIN_PAGE);
+      },
+    });
+  }, []);
   return (
     <main className="p-x p-y">
       <Helmet>
@@ -132,6 +144,11 @@ const UserPage = () => {
           title="修改密码"
           arrow
           onClick={() => history.push("/reset")}
+        ></List.Item>
+        <List.Item
+          title="退出登录"
+          arrow
+          onClick={() => onLogout()}
         ></List.Item>
       </List>
     </main>
