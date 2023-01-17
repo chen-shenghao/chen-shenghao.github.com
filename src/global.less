@@ -1,5 +1,23 @@
+@import './normalize.less';
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #f8f8f8;
+  // background-color: var(--adm-color-box);
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
 :root:root {
-  --adm-color-primary: lightgreen;
+  // --adm-color-primary: lightgreen;
+
 }
 
 .icon {
@@ -8,4 +26,73 @@
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.p-x {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.p-y {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+
+.m-y {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.m-t {
+  margin-top: 16px !important;
+}
+
+.m-b {
+  margin-bottom: 16px !important;
+}
+
+.w-full {
+  width: 100%;
+}
+
+// COLOR ||
+.text-success {
+  color: var(--adm-color-success);
+}
+
+.text-warning {
+  color: var(--adm-color-warning);
+}
+
+.text-gray {
+  color: var(--adm-color-weak);
 }

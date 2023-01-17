@@ -1,5 +1,11 @@
+// @ts-ignore
+window.process = {};
 window.addEventListener("erro", function (error) {
   console.log("error", error);
+});
+
+window.addEventListener("unhandledrejection", function (error) {
+  console.log("unhandledrejection", error);
 });
 
 window.addEventListener("load", function () {
