@@ -13,7 +13,7 @@ import {
 } from "antd-mobile";
 import numeral from "numeral";
 import { useCallback } from "react";
-import { history, useRequest } from "umi";
+import { Helmet, history, useRequest } from "umi";
 
 const UserPage = () => {
   const [form] = Form.useForm();
@@ -74,6 +74,9 @@ const UserPage = () => {
   }, [data?.headImage, data?.name, form, run]);
   return (
     <main className="p-x p-y">
+      <Helmet>
+        <title>我的</title>
+      </Helmet>
       <Card>
         <Space
           align="center"
@@ -104,6 +107,7 @@ const UserPage = () => {
           margin: 0,
         }}
         className="m-t"
+        header={<>养殖记录</>}
       >
         <List.Item
           title="认养记录"
@@ -114,6 +118,20 @@ const UserPage = () => {
           title="出栏记录"
           arrow
           onClick={() => history.push("/crop")}
+        ></List.Item>
+      </List>
+      <List
+        mode="card"
+        style={{
+          margin: 0,
+        }}
+        className="m-t"
+        header={<>设置</>}
+      >
+        <List.Item
+          title="修改密码"
+          arrow
+          onClick={() => history.push("/reset")}
         ></List.Item>
       </List>
     </main>

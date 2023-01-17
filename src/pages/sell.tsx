@@ -34,10 +34,10 @@ export default function SellPage() {
             </Button>
           }
           mode="card"
-          initialValues={{
-            phone: "18838255156",
-            pwd: "123456...",
-          }}
+          // initialValues={{
+          //   phone: "18838255156",
+          //   pwd: "123456...",
+          // }}
           onFinish={onFinish}
         >
           <>

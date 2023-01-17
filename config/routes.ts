@@ -29,6 +29,7 @@ const routes: Route[] = [
   { path: "/join", component: "join", title: "羊场加盟" },
   { path: "/foster", component: "foster", title: "认养记录" },
   { path: "/crop", component: "crop", title: "出栏记录" },
+  { path: "/reset", component: "reset", title: "修改密码" },
   { path: "/detail/:id", component: "detail", title: "详情" },
   { path: "/", redirect: "/home/index" },
   { path: "*", component: "404" },

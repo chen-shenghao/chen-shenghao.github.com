@@ -22,7 +22,7 @@ export default function Login() {
       </Helmet>
       <main>
         <AutoCenter>
-          <h1>登录</h1>
+          <h1>爱心羊场</h1>
         </AutoCenter>
         <section>
           <Form
@@ -33,10 +33,10 @@ export default function Login() {
               </Button>
             }
             mode="card"
-            initialValues={{
-              phone: "18838255156",
-              pwd: "123456...",
-            }}
+            // initialValues={{
+            //   phone: "18838255156",
+            //   pwd: "123456...",
+            // }}
             onFinish={onFinish}
           >
             <Form.Item
@@ -56,7 +56,7 @@ export default function Login() {
           </Form>
         </section>
         <section className="d-flex adm-space-justify-between p-x">
-          <a>忘记密码</a>
+          <a></a>
           <a
             onClick={() => {
               history.push("/register");

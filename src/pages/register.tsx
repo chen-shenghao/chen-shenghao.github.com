@@ -63,12 +63,12 @@ export default function Register() {
         </AutoCenter>
         <section>
           <Form
-            initialValues={{
-              phone: 11111111111,
-              pwd: 1,
-              checkpwd: 1,
-              code: 1,
-            }}
+            // initialValues={{
+            //   phone: 11111111111,
+            //   pwd: 1,
+            //   checkpwd: 1,
+            //   code: 1,
+            // }}
             form={form}
             layout="horizontal"
             footer={
@@ -77,14 +77,16 @@ export default function Register() {
               </Button>
             }
             onFinish={onFinish}
-            mode="card">
+            mode="card"
+          >
             <Form.Item
               name="phone"
               label="手机号"
               rules={[
                 { required: true, message: "手机号不能为空" },
                 { pattern: rules.phone, message: "手机号格式不正确" },
-              ]}>
+              ]}
+            >
               <Input placeholder="请输入手机号" />
             </Form.Item>
             <Form.Item
@@ -97,16 +99,19 @@ export default function Register() {
                   disabled={code > 0}
                   onClick={() => {
                     onGetCode();
-                  }}>
+                  }}
+                >
                   {buttonText}
                 </Button>
-              }>
+              }
+            >
               <Input placeholder="请输入验证码" />
             </Form.Item>
             <Form.Item
               name="pwd"
               label="密码"
-              rules={[{ required: true, message: "密码不能为空" }]}>
+              rules={[{ required: true, message: "密码不能为空" }]}
+            >
               <Input type={"password"} placeholder="请输入密码" />
             </Form.Item>
             <Form.Item
@@ -122,7 +127,8 @@ export default function Register() {
                     return Promise.reject(new Error("两次密码不一样"));
                   },
                 }),
-              ]}>
+              ]}
+            >
               <Input type={"password"} placeholder="请确认密码" />
             </Form.Item>
           </Form>
@@ -132,7 +138,8 @@ export default function Register() {
           <a
             onClick={() => {
               history.back();
-            }}>
+            }}
+          >
             返回
           </a>
         </section>
