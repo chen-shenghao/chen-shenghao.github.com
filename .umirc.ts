@@ -4,11 +4,11 @@ import routes from "./config/routes";
 export default defineConfig({
   npmClient: "pnpm",
   codeSplitting: {
-    jsStrategy: "granularChunks"
+    jsStrategy: "granularChunks",
   },
   hash: true,
-  title: "羊只领养",
+  title: "爱心羊场",
   routes,
   plugins: ["@umijs/plugins/dist/request"],
-  request: {}
+  request: {},
 });
