@@ -12,7 +12,8 @@ import { CONST_KEYS } from "./const";
 import { getLocalStorage } from "./utils/storage";
 
 export const request: RequestConfig = {
-  baseURL: "http://sheep.gitliuyi.top",
+  baseURL: "http://spfapi.lianglianwang.com",
+  // baseURL: "http://sheep.gitliuyi.top",
   errorConfig: {},
   responseInterceptors: [
     [
