@@ -14,7 +14,8 @@
     "ahooks": "^3.7.4",
     "antd-mobile": "^5.28.0",
     "numeral": "^2.0.6",
-    "umi": "4.0.40"
+    "umi": "4.0.40",
+    "weixin-js-sdk-ts": "^1.6.1"
   },
   "devDependencies": {
     "@types/numeral": "^2.0.2",
