@@ -10,8 +10,9 @@ window.addEventListener("unhandledrejection", function (error) {
 
 window.addEventListener("load", function () {
   loadIcons();
+  // getOpenid();
 });
-
+// 加载iconfont
 function loadIcons() {
   const s = document.createElement("script");
   s.src = "//at.alicdn.com/t/c/font_3854655_z0i208wtiv8.js";

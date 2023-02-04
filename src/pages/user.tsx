@@ -79,7 +79,7 @@ const UserPage = () => {
       title: "确认退出？",
       onConfirm: async () => {
         await Services.auth.logout();
-        localStorage.removeItem(CONST_KEYS.TOKEN);
+        localStorage.clear();
         history.replace(CONST_KEYS.LOGIN_PAGE);
       },
     });
@@ -107,9 +107,11 @@ const UserPage = () => {
         </Space>
         <Divider />
         <Space className="w-full" justify="between">
-          <div>销售回款：{numeral(data?.sellAmount).format("0,00")}元</div>
+          <div>销售回款：{numeral(data?.sellAmount).format("0,00.00")}元</div>
           <div className="text-gray">|</div>
-          <div>置换羊肉：{numeral(data?.replaceSheepNum).format("0,00")}斤</div>
+          <div>
+            置换羊肉：{numeral(data?.replaceSheepNum).format("0,00.00")}斤
+          </div>
         </Space>
       </Card>
 

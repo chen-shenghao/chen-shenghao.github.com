@@ -4,7 +4,9 @@ import { sheepBuy } from "./sheepBuy";
 import { sheepFoster } from "./sheepFoster";
 import { sheepSlaughter } from "./sheepSlaughter";
 import { sheepTypeConfig } from "./sheepTypeConfig";
+import { sheepStoage } from "./sheepStaorage";
 import { utils } from "./utils";
+import { wxmp } from "./wxmp";
 const Services = {
   auth,
   /** 加盟表 */
@@ -14,6 +16,8 @@ const Services = {
   sheepSlaughter,
   sheepTypeConfig,
   utils,
+  sheepStoage,
+  wxmp,
 };
 
 export default Services;

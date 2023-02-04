@@ -6,6 +6,8 @@ import {
   SheepFosterStatus,
 } from "@/apis/sheepFoster";
 import { SlaughterType } from "@/apis/sheepSlaughter";
+import { CONST_KEYS } from "@/const";
+import { getOpenid } from "@/utils";
 import {
   Button,
   Card,
@@ -13,16 +15,18 @@ import {
   Divider,
   Form,
   Grid,
+  Image,
   InfiniteScroll,
   Input,
   Modal,
   Radio,
+  Slider,
   Space,
   Tabs,
   Tag,
   Toast,
 } from "antd-mobile";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet, history, useRequest } from "umi";
 
 const GridItem = ({ num, label }: { num?: number; label: string }) => {
@@ -36,6 +40,19 @@ const GridItem = ({ num, label }: { num?: number; label: string }) => {
   );
 };
 type CurrentRowType = SheepFosterListKeys;
+
+const marks = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+};
 
 export default function HomePage() {
   const page = useRef<number>(1);
@@ -56,6 +73,17 @@ export default function HomePage() {
       cacheKey: "Services.sheepFoster.statisticsMyNum",
     }
   );
+  // 获取可认养羊只数
+  // const { data: adoptableNum, run: getAdoptableNum } = useRequest(
+  //   Services.sheepStoage.getAdoptableNum,
+  //   { manual: true }
+  // );
+  // console.log(adoptableNum);
+
+  useEffect(() => {
+    if (!data || localStorage.getItem(CONST_KEYS.OPENID)) return;
+    getOpenid();
+  }, [data]);
   /** 买羊 */
   const onBuy = useCallback(() => {
     form.resetFields();
@@ -97,11 +125,14 @@ export default function HomePage() {
                 }
               }
             }}
+            initialValues={{
+              buyNum: 1,
+            }}
           >
             <Form.Item
               name={"sheepType"}
               label="羊类型"
-              rules={[{ required: true, message: "请输入总额" }]}
+              rules={[{ required: true, message: "请选择羊类型" }]}
             >
               <Radio.Group>
                 <Radio
@@ -126,13 +157,9 @@ export default function HomePage() {
             <Form.Item
               name={"buyNum"}
               label="购入数量"
-              rules={[{ required: true, message: "请输入数量" }]}
+              rules={[{ required: true, message: "请选择数量" }]}
             >
-              <Input
-                type={"number"}
-                inputMode="numeric"
-                placeholder="请输入数量"
-              />
+              <Slider marks={marks} step={1} min={1} max={10} value={40} />
             </Form.Item>
             <Form.Item name={"buyTotalPrice"} label="总额（元）">
               <Input type={"number"} readOnly placeholder="待计算" />
@@ -225,17 +252,35 @@ export default function HomePage() {
         <section className="m-t">
           <Grid columns={2} gap={16}>
             <Grid.Item>
-              <Card onClick={() => history.push("/intro")}>
-                <Space>
+              <Card
+                bodyStyle={{ paddingTop: 0, paddingBottom: 0 }}
+                onClick={() => history.push("/intro")}
+              >
+                <div className="d-flex space-between items-center">
                   <div>认养规则</div>
-                </Space>
+                  <Image
+                    src="/home-1.jpg"
+                    fit="contain"
+                    width={60}
+                    height={60}
+                  />
+                </div>
               </Card>
             </Grid.Item>
             <Grid.Item>
-              <Card onClick={() => history.push("/join")}>
-                <Space>
+              <Card
+                bodyStyle={{ paddingTop: 0, paddingBottom: 0 }}
+                onClick={() => history.push("/join")}
+              >
+                <div className="d-flex space-between items-center">
                   <div>羊场加盟</div>
-                </Space>
+                  <Image
+                    src="/home-2.png"
+                    fit="contain"
+                    width={60}
+                    height={60}
+                  />
+                </div>
               </Card>
             </Grid.Item>
           </Grid>

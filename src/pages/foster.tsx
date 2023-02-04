@@ -10,7 +10,7 @@ import {
 } from "antd-mobile";
 import numeral from "numeral";
 import { useCallback, useRef, useState } from "react";
-import { Helmet } from "umi";
+import { Helmet, history } from "umi";
 
 const statusMapColor: Record<string, TagProps["color"]> = {
   [SheepBuyStatus.等待支付]: "default",
@@ -30,6 +30,7 @@ export default function FosterPage() {
     setData([...res.data.list, ...(data || [])]);
     setHasMore(res.data.current < res.data.totalPage);
   }, [data]);
+
   return (
     <div className="p-x p-y">
       <Helmet>
@@ -37,7 +38,11 @@ export default function FosterPage() {
       </Helmet>
       <ul>
         {data?.map((item) => (
-          <li className="m-b" key={item.buyOrderNo}>
+          <li
+            className="m-b"
+            key={item.buyOrderNo}
+            onClick={() => history.push("/foster/" + item.buyOrderNo)}
+          >
             <Card
               title={<div>订单号：{item.buyOrderNo}</div>}
               extra={
@@ -51,7 +56,7 @@ export default function FosterPage() {
                     {item.buyNum}只
                   </Tag>
                   <Tag fill="outline" color={"danger"}>
-                    ￥{numeral(item.buyTotalPrice).format("0,00")}
+                    ￥{numeral(item.buyTotalPrice).format("0,00.00")}
                   </Tag>
                 </Space>
               </div>

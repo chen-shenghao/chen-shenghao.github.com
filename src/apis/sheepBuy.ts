@@ -1,3 +1,4 @@
+import { CONST_KEYS } from "@/const";
 import { request } from "umi";
 import { ApiResponse, PageData, PageParams } from ".";
 import { SheepFosterSheepType } from "./sheepFoster";
@@ -34,6 +35,33 @@ const sheepBuy = {
       {
         params,
       }
+    );
+  },
+  /**
+   * 微信公众号支付
+   */
+  async wxMpPay(params: { orderNo?: string; openid?: string }) {
+    return request<
+      ApiResponse<{
+        appId: string;
+        timeStamp: number;
+        nonceStr: string;
+        package: string;
+        signType: string;
+        paySign: string;
+      }>
+    >(`/client/core/sheepBuy/wxMpPay/${params?.orderNo}`, {
+      params: {
+        openid: localStorage.getItem(CONST_KEYS.OPENID),
+      },
+    });
+  },
+  /**
+   * 微信公众号支付
+   */
+  async detail(buyOrderNo?: string) {
+    return request<ApiResponse<SheepBuyListKeys>>(
+      `/client/core/sheepBuy/detail/${buyOrderNo}`
     );
   },
 };

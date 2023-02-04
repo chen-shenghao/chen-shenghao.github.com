@@ -1,3 +1,4 @@
+import Services from "@/apis";
 import { CONST_KEYS } from "@/const";
 
 export function sleep(time = 1500) {
@@ -34,7 +35,7 @@ export function getUrlParam(key: string) {
  * @param state 微信授权需要传递给重定向路径的state值
  * @returns code
  */
-export function getOpenid(state?: string) {
+export async function getOpenid(state?: string) {
   const currentUrl = location.href;
   const code = getUrlParam("code") || localStorage.getItem(CONST_KEYS.OPENID);
 
@@ -45,9 +46,18 @@ export function getOpenid(state?: string) {
     const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(
       currentUrl
     )}&response_type=code&scope=snsapi_base&state=${state}#wechat_redirect`;
+    console.group("微信相关");
+    console.log("appid", appId);
+    console.log("url", url);
+    console.log("redirect_uri", currentUrl);
+    console.log("state", state);
+    console.groupEnd();
+
     location.replace(url);
   } else {
-    localStorage.setItem(CONST_KEYS.OPENID, code);
-    return code;
+    const openid = (await Services.wxmp.getOpenid(code)).data;
+    console.log("获取到的openid", openid);
+    localStorage.setItem(CONST_KEYS.OPENID, openid);
+    return openid;
   }
 }

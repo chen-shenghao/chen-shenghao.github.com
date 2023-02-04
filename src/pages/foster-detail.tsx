@@ -1,5 +1,6 @@
 import Services from "@/apis";
 import { SheepBuyStatus } from "@/apis/sheepBuy";
+import { isDev } from "@/utils";
 
 import { Button, List } from "antd-mobile";
 import { useCallback } from "react";
@@ -16,7 +17,7 @@ export default function DetailPage() {
   const { data: wxJsConfig } = useRequest(Services.wxmp.jsapiSignature, {
     onSuccess(res) {
       wx.config({
-        debug: true,
+        debug: isDev(),
         jsApiList: ["chooseWXPay"],
         openTagList: [],
         ...res,

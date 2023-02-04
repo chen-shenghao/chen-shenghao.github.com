@@ -1,7 +1,8 @@
 import Services from "@/apis";
 import { CONST_KEYS } from "@/const";
+import { isDev } from "@/utils";
 import { setLocalStorage } from "@/utils/storage";
-import { AutoCenter, Button, Form, Input, Toast } from "antd-mobile";
+import { AutoCenter, Button, Form, Image, Input, Toast } from "antd-mobile";
 import { useCallback } from "react";
 import { Helmet, history } from "umi";
 export default function Login() {
@@ -16,11 +17,14 @@ export default function Login() {
     });
   }, []);
   return (
-    <div style={{ paddingTop: 100 }}>
+    <div style={{ height: "100%" }} className="d-flex items-center">
       <Helmet>
         <title>登录</title>
       </Helmet>
       <main>
+        <div className="d-flex space-center">
+          <Image src="/login-icon.jpg" width={120} />
+        </div>
         <AutoCenter>
           <h1>爱心羊场</h1>
         </AutoCenter>
@@ -33,10 +37,14 @@ export default function Login() {
               </Button>
             }
             mode="card"
-            // initialValues={{
-            //   phone: "18838255156",
-            //   pwd: "123456...",
-            // }}
+            initialValues={
+              isDev()
+                ? {
+                    phone: "18838255156",
+                    pwd: "123456...",
+                  }
+                : undefined
+            }
             onFinish={onFinish}
           >
             <Form.Item

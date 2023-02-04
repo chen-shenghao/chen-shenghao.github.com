@@ -53,7 +53,7 @@ export default function Register() {
       .catch(() => null);
   }, []);
   return (
-    <div style={{ paddingTop: 100 }}>
+    <div style={{ height: "100%" }} className="d-flex items-center">
       <Helmet>
         <title>注册</title>
       </Helmet>
