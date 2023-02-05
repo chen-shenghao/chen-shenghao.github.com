@@ -33,12 +33,12 @@ const sheepTypeConfig = {
     );
   },
   /** 列表查询 */
-  async list(params: PageParams) {
+  async list() {
     return request<ApiResponse<SheepTypeConfigListKeys[]>>(
       "/client/core/sheepTypeConfig/list",
       {
         method: "POST",
-        data: params,
+        data: {},
       }
     );
   },
@@ -95,6 +95,7 @@ export type SheepTypeConfigListKeys = {
   sellPrice: number;
   /** 类型 */
   sheepType: SheepFosterSheepType;
+  sheepTypeCn: string;
   /** 更新者 */
   updateBy: string;
   /** 更新时间 */

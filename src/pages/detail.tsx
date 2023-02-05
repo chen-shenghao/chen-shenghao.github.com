@@ -23,7 +23,7 @@ export default function DetailPage() {
         <Item extra={data?.prodDate || "-"}>生产日期</Item>
         <Item extra={data?.outputCycle + "天"}>产出周期</Item>
         <Item extra={data?.statusCn}>当前状态</Item>
-        <Item description={<div>这里是监控</div>}>{"配属监控"}</Item>
+        <Item description={<div>开发中...</div>}>{"配属监控"}</Item>
       </List>
     </div>
   );

@@ -23,7 +23,7 @@ const sheepBuy = {
     buyNum: number;
     sheepType: SheepFosterSheepType;
   }) {
-    return request<ApiResponse>("/client/core/sheepBuy/buy", {
+    return request<ApiResponse<SheepBuyListKeys>>("/client/core/sheepBuy/buy", {
       method: "POST",
       data: params,
     });

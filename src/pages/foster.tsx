@@ -60,6 +60,8 @@ export default function FosterPage() {
   const { data: adoptableNum } = useRequest(
     Services.sheepStoage.getAdoptableNum
   );
+  // 获取羊配置表
+  const { data: sheepTypeList } = useRequest(Services.sheepTypeConfig.list);
 
   /** 买羊 */
   const onBuy = useCallback(() => {
@@ -95,7 +97,6 @@ export default function FosterPage() {
                       +form.getFieldValue("buyPrice"),
                   });
                 } catch (error) {
-                  console.log(error);
                   form.setFieldsValue({
                     buyNum: undefined,
                   });
@@ -112,15 +113,17 @@ export default function FosterPage() {
               rules={[{ required: true, message: "请选择羊类型" }]}
             >
               <Radio.Group>
-                <Radio
-                  style={{ marginRight: 6 }}
-                  value={SheepFosterSheepType.育肥羊}
-                >
-                  育肥羊（￥1000/只）
-                </Radio>
-                <Radio value={SheepFosterSheepType.繁育母羊}>
-                  繁育母羊（￥2000/只）
-                </Radio>
+                {sheepTypeList
+                  ?.filter((buyIs) => buyIs.buyIs)
+                  .map((item) => (
+                    <Radio
+                      key={item.id}
+                      style={{ marginRight: 6 }}
+                      value={item.sheepType}
+                    >
+                      {item.sheepTypeCn}（￥{item.buyPrice}/只）
+                    </Radio>
+                  ))}
               </Radio.Group>
             </Form.Item>
             <Form.Item
@@ -146,15 +149,16 @@ export default function FosterPage() {
       ),
       confirmText: "确认",
       onConfirm: async () => {
-        const res = await form.validateFields();
-        await Services.sheepBuy.getMyDetail(res);
+        const validate = await form.validateFields();
+        const res = await Services.sheepBuy.getMyDetail(validate);
         Toast.show({
           icon: "success",
           content: "提交成功",
         });
+        history.push("/foster/" + res.data.buyOrderNo);
       },
     });
-  }, [form]);
+  }, [form, sheepTypeList]);
 
   return (
     <div className="p-x p-y">
