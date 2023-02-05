@@ -7,24 +7,17 @@ import {
 } from "@/apis/sheepFoster";
 import { SlaughterType } from "@/apis/sheepSlaughter";
 import { CONST_KEYS } from "@/const";
-import { getOpenid } from "@/utils";
 import {
-  Button,
   Card,
   Checkbox,
   Divider,
-  Form,
   Grid,
   Image,
   InfiniteScroll,
-  Input,
   Modal,
-  Radio,
-  Slider,
   Space,
   Tabs,
   Tag,
-  Toast,
 } from "antd-mobile";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet, history, useRequest } from "umi";
@@ -41,22 +34,8 @@ const GridItem = ({ num, label }: { num?: number; label: string }) => {
 };
 type CurrentRowType = SheepFosterListKeys;
 
-const marks = {
-  1: 1,
-  2: 2,
-  3: 3,
-  4: 4,
-  5: 5,
-  6: 6,
-  7: 7,
-  8: 8,
-  9: 9,
-  10: 10,
-};
-
 export default function HomePage() {
   const page = useRef<number>(1);
-  const [form] = Form.useForm();
   // 只看在养
   const [checked, setChecked] = useState(false);
   // 列表项
@@ -73,111 +52,11 @@ export default function HomePage() {
       cacheKey: "Services.sheepFoster.statisticsMyNum",
     }
   );
-  // 获取可认养羊只数
-  // const { data: adoptableNum, run: getAdoptableNum } = useRequest(
-  //   Services.sheepStoage.getAdoptableNum,
-  //   { manual: true }
-  // );
-  // console.log(adoptableNum);
 
   useEffect(() => {
     if (!data || localStorage.getItem(CONST_KEYS.OPENID)) return;
-    getOpenid();
+    // getOpenid();
   }, [data]);
-  /** 买羊 */
-  const onBuy = useCallback(() => {
-    form.resetFields();
-    Modal.confirm({
-      title: "买羊",
-      destroyOnClose: false,
-      forceRender: true,
-      content: (
-        <>
-          <Form
-            form={form}
-            onValuesChange={(values) => {
-              if (values.sheepType === SheepFosterSheepType.育肥羊) {
-                form.setFieldsValue({
-                  buyPrice: "1000",
-                });
-              }
-              if (values.sheepType === SheepFosterSheepType.繁育母羊) {
-                form.setFieldsValue({
-                  buyPrice: "2000",
-                });
-              }
-
-              if (
-                form.getFieldValue("buyNum") &&
-                form.getFieldValue("buyPrice")
-              ) {
-                try {
-                  form.setFieldsValue({
-                    buyTotalPrice:
-                      +form.getFieldValue("buyNum") *
-                      +form.getFieldValue("buyPrice"),
-                  });
-                } catch (error) {
-                  console.log(error);
-                  form.setFieldsValue({
-                    buyNum: undefined,
-                  });
-                }
-              }
-            }}
-            initialValues={{
-              buyNum: 1,
-            }}
-          >
-            <Form.Item
-              name={"sheepType"}
-              label="羊类型"
-              rules={[{ required: true, message: "请选择羊类型" }]}
-            >
-              <Radio.Group>
-                <Radio
-                  style={{ marginRight: 6 }}
-                  value={SheepFosterSheepType.育肥羊}
-                >
-                  育肥羊（￥1000/只）
-                </Radio>
-                <Radio value={SheepFosterSheepType.繁育母羊}>
-                  繁育母羊（￥2000/只）
-                </Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              hidden
-              name={"buyPrice"}
-              label="单价"
-              rules={[{ required: true, message: "请输入单价" }]}
-            >
-              <Input type={"number"} placeholder="请输入单价" />
-            </Form.Item>
-            <Form.Item
-              name={"buyNum"}
-              label="购入数量"
-              rules={[{ required: true, message: "请选择数量" }]}
-            >
-              <Slider marks={marks} step={1} min={1} max={10} value={40} />
-            </Form.Item>
-            <Form.Item name={"buyTotalPrice"} label="总额（元）">
-              <Input type={"number"} readOnly placeholder="待计算" />
-            </Form.Item>
-          </Form>
-        </>
-      ),
-      confirmText: "确认",
-      onConfirm: async () => {
-        const res = await form.validateFields();
-        await Services.sheepBuy.getMyDetail(res);
-        Toast.show({
-          icon: "success",
-          content: "提交成功",
-        });
-      },
-    });
-  }, [form]);
 
   const loadMore = useCallback(async () => {
     const res = await Services.sheepFoster.listMyPage({
@@ -365,7 +244,7 @@ export default function HomePage() {
                     ) : (
                       <span>{item.statusCn}</span>
                     )}
-                    <span>摄像头</span>
+                    <span></span>
                   </Space>
                 </Card>
               </li>
@@ -373,34 +252,7 @@ export default function HomePage() {
           </ul>
         </section>
 
-        <InfiniteScroll
-          style={{
-            paddingBottom: 56,
-          }}
-          loadMore={loadMore}
-          hasMore={hasMore}
-        />
-
-        <footer
-          className="p-x"
-          style={{
-            position: "absolute",
-            bottom: 66,
-            left: 0,
-            width: "100%",
-            boxSizing: "border-box",
-          }}
-        >
-          <Button
-            color="primary"
-            block
-            onClick={() => {
-              onBuy();
-            }}
-          >
-            买羊
-          </Button>
-        </footer>
+        <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
       </div>
     </>
   );

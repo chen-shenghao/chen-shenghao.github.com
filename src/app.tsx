@@ -23,6 +23,7 @@ export const request: RequestConfig = {
 
         const { data, status } = response || {};
         if (status === 401) {
+          localStorage.clear();
           history.replace(CONST_KEYS.LOGIN_PAGE);
           return Promise.reject(data);
         }

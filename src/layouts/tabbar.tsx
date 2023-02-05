@@ -18,6 +18,11 @@ const Bottom: FC = () => {
       icon: <IconFont type="icon-home" />,
     },
     {
+      key: "/home/foster",
+      title: "买羊",
+      icon: <IconFont type="icon-im" />,
+    },
+    {
       key: "/home/user",
       title: "我的",
       icon: <IconFont type="icon-black" />,

@@ -123,11 +123,11 @@ const UserPage = () => {
         className="m-t"
         header={<>养殖记录</>}
       >
-        <List.Item
+        {/* <List.Item
           title="认养记录"
           arrow
           onClick={() => history.push("/foster")}
-        ></List.Item>
+        ></List.Item> */}
         <List.Item
           title="出栏记录"
           arrow

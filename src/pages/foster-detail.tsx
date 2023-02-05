@@ -10,7 +10,9 @@ const { Item } = List;
 
 export default function DetailPage() {
   const params = useParams<{ id: string }>();
-  const { data } = useRequest(async () => Services.sheepBuy.detail(params.id));
+  const { data, run: runDetail } = useRequest(async () =>
+    Services.sheepBuy.detail(params.id)
+  );
   const { loading, run } = useRequest(Services.sheepBuy.wxMpPay, {
     manual: true,
   });
@@ -42,12 +44,12 @@ export default function DetailPage() {
       wx.chooseWXPay({
         ...res,
         timestamp: res.timeStamp,
-        success: function (res: any): void {
-          console.log("success", res);
+        success: function (): void {
+          runDetail();
         },
       });
     });
-  }, [data?.buyOrderNo, run, wxJsConfig]);
+  }, [data?.buyOrderNo, run, runDetail, wxJsConfig]);
 
   return (
     <div>
