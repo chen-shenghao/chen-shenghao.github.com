@@ -1,6 +1,5 @@
 import Services from "@/apis";
 import { SheepBuyListKeys, SheepBuyStatus } from "@/apis/sheepBuy";
-import { SheepFosterSheepType } from "@/apis/sheepFoster";
 import { InfiniteScrollContent } from "@/components/InfiniteScrollContent";
 import {
   Button,
@@ -75,14 +74,12 @@ export default function FosterPage() {
           <Form
             form={form}
             onValuesChange={(values) => {
-              if (values.sheepType === SheepFosterSheepType.育肥羊) {
+              if (values.sheepType) {
+                const buyPrice = sheepTypeList?.find(
+                  (item) => item.sheepType === values.sheepType
+                )?.buyPrice;
                 form.setFieldsValue({
-                  buyPrice: "1000",
-                });
-              }
-              if (values.sheepType === SheepFosterSheepType.繁育母羊) {
-                form.setFieldsValue({
-                  buyPrice: "2000",
+                  buyPrice: buyPrice,
                 });
               }
 
