@@ -11,4 +11,5 @@ export default defineConfig({
   routes,
   plugins: ["@umijs/plugins/dist/request"],
   request: {},
+  outputPath: "client",
 });

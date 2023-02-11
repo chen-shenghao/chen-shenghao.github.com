@@ -53,24 +53,31 @@ export default function Register() {
       .catch(() => null);
   }, []);
   return (
-    <div style={{ height: "100%" }} className="d-flex items-center">
+    <div style={{ height: "100%", position: "relative" }}>
       <Helmet>
         <title>注册</title>
       </Helmet>
-      <main>
+      <main
+        style={{
+          position: "absolute",
+          margin: "auto",
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          height: 500,
+        }}
+      >
         <AutoCenter>
           <h1>注册</h1>
         </AutoCenter>
         <section>
           <Form
-            // initialValues={{
-            //   phone: 11111111111,
-            //   pwd: 1,
-            //   checkpwd: 1,
-            //   code: 1,
-            // }}
             form={form}
             layout="horizontal"
+            style={{
+              "--prefix-width": "80px",
+            }}
             footer={
               <Button block type="submit" color="primary" size="large">
                 注册
@@ -130,6 +137,9 @@ export default function Register() {
               ]}
             >
               <Input type={"password"} placeholder="请确认密码" />
+            </Form.Item>
+            <Form.Item name="referrerCode" label="推荐人">
+              <Input placeholder="推荐人的邀请码" />
             </Form.Item>
           </Form>
         </section>

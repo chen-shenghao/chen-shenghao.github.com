@@ -58,6 +58,10 @@ export type CurrentUser = {
   replaceSheepNum: number;
   /** 销售回款 */
   sellAmount: number;
+  /** 积分 */
+  integral: number;
+  /** 邀请码 */
+  invitationCode: string;
 };
 
 export type PageData<T> = {

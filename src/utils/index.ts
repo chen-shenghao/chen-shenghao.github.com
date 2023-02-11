@@ -31,18 +31,18 @@ export function getUrlParam(key: string) {
 }
 
 /**
- * 获取code，并储存到localStorage中
+ * 获取openid，并储存到localStorage中
  * @param state 微信授权需要传递给重定向路径的state值
- * @returns code
+ * @returns openid
  */
 export async function getOpenid(state?: string) {
   const currentUrl = location.href;
   const code = getUrlParam("code") || localStorage.getItem(CONST_KEYS.OPENID);
 
   if (!code) {
-    // const appId = "wxf53d7ad98e82e920";
+    // const appId = "wx117f49474eb08f8c";
     // test wxf23786c584eb01a6
-    const appId = isDev() ? "wxf23786c584eb01a6" : "wxf53d7ad98e82e920";
+    const appId = isDev() ? "wxf23786c584eb01a6" : "wx117f49474eb08f8c";
     const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(
       currentUrl
     )}&response_type=code&scope=snsapi_base&state=${state}#wechat_redirect`;

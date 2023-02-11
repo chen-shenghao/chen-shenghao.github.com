@@ -17,11 +17,21 @@ export default function Login() {
     });
   }, []);
   return (
-    <div style={{ height: "100%" }} className="d-flex items-center">
+    <div style={{ height: "100%", position: "relative" }}>
       <Helmet>
         <title>登录</title>
       </Helmet>
-      <main>
+      <main
+        style={{
+          position: "absolute",
+          margin: "auto",
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          height: 500,
+        }}
+      >
         <div className="d-flex space-center">
           <Image src="/login-icon.jpg" width={120} />
         </div>
@@ -46,6 +56,9 @@ export default function Login() {
                 : undefined
             }
             onFinish={onFinish}
+            style={{
+              "--prefix-width": "60px",
+            }}
           >
             <Form.Item
               name="phone"

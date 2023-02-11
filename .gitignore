@@ -6,5 +6,6 @@
 /src/.umi-production
 /src/.umi-test
 /dist
+/client
 .swc
 *.zip

@@ -7,7 +7,9 @@ import {
 } from "@/apis/sheepFoster";
 import { SlaughterType } from "@/apis/sheepSlaughter";
 import { CONST_KEYS } from "@/const";
+import { getOpenid, isDev } from "@/utils";
 import {
+  AutoCenter,
   Card,
   Checkbox,
   Divider,
@@ -16,6 +18,7 @@ import {
   InfiniteScroll,
   Modal,
   Space,
+  SpinLoading,
   Tabs,
   Tag,
 } from "antd-mobile";
@@ -38,8 +41,6 @@ export default function HomePage() {
   const page = useRef<number>(1);
   // 只看在养
   const [checked, setChecked] = useState(false);
-  // 列表项
-  // const [currentRow, setCurrentRow] = useState<CurrentRowType>();
   // 还有更多么
   const [hasMore, setHasMore] = useState(true);
   const [data, setData] = useState<CurrentRowType[]>();
@@ -55,7 +56,9 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!data || localStorage.getItem(CONST_KEYS.OPENID)) return;
-    // getOpenid();
+    if (!isDev()) {
+      getOpenid();
+    }
   }, [data]);
 
   const loadMore = useCallback(async () => {
@@ -105,6 +108,16 @@ export default function HomePage() {
     }
     return data;
   }, [checked, data]);
+
+  // 生产环境没有openid的话返回null
+  if (!isDev() && !localStorage.getItem(CONST_KEYS.OPENID)) {
+    return (
+      <AutoCenter>
+        <SpinLoading />
+      </AutoCenter>
+    );
+  }
+
   return (
     <>
       <Helmet>

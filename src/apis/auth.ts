@@ -40,6 +40,11 @@ const auth = {
       data: params,
     });
   },
+  async generateInvitationCode() {
+    return request<ApiResponse>("/client/generateInvitationCode", {
+      method: "POST",
+    });
+  },
 };
 
 export { auth };

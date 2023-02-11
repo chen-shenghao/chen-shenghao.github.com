@@ -9,6 +9,7 @@ import {
   Input,
   List,
   Modal,
+  Popover,
   Space,
   Toast,
 } from "antd-mobile";
@@ -84,28 +85,79 @@ const UserPage = () => {
       },
     });
   }, []);
+  /** copy */
+  const onCopy = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      navigator.clipboard.writeText(data?.invitationCode || "");
+      Toast.show({
+        icon: "success",
+        content: "复制成功",
+      });
+    },
+    [data?.invitationCode]
+  );
+  /** 生成邀请码 */
+  const onGenerateInvitationCode = useCallback(() => {
+    Services.auth.generateInvitationCode().then((res) => {
+      Toast.show({
+        icon: "success",
+        content: res.msg,
+      });
+      run();
+    });
+  }, [run]);
+
   return (
     <main className="p-x p-y">
       <Helmet>
         <title>我的</title>
       </Helmet>
       <Card>
-        <Space
-          align="center"
-          justify="start"
-          onClick={() => {
-            onUpdateUserInfo();
-          }}
-        >
-          <Avatar
-            style={{
-              "--border-radius": "50%",
-            }}
-            src={data?.headImage || ""}
-          />
-          <div>{data?.name}</div>
+        <Space align="center" justify="between" style={{ width: "100%" }}>
+          <Space align="center">
+            <Avatar
+              style={{
+                "--border-radius": "50%",
+              }}
+              onClick={() => {
+                onUpdateUserInfo();
+              }}
+              src={data?.headImage || ""}
+            />
+            <div>
+              <div
+                onClick={() => {
+                  onUpdateUserInfo();
+                }}
+              >
+                {data?.name}
+              </div>
+              <div onClick={onCopy}>
+                <>
+                  {data?.invitationCode ? (
+                    <span>
+                      推荐码：<a>{data?.invitationCode}</a>
+                    </span>
+                  ) : (
+                    <a onClick={onGenerateInvitationCode}>生成邀请码</a>
+                  )}
+                </>
+              </div>
+            </div>
+          </Space>
+
+          <Popover
+            content="留着换东西，或者付款的时候优惠一点。"
+            trigger="click"
+            placement="bottom-start"
+            mode="dark"
+          >
+            <div>积分：{data?.integral}</div>
+          </Popover>
         </Space>
         <Divider />
+
         <Space className="w-full" justify="between">
           <div>销售回款：{numeral(data?.sellAmount).format("0,00.00")}元</div>
           <div className="text-gray">|</div>
