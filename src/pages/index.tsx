@@ -9,7 +9,6 @@ import { SlaughterType } from "@/apis/sheepSlaughter";
 import { CONST_KEYS } from "@/const";
 import { getOpenid, isDev } from "@/utils";
 import {
-  AutoCenter,
   Card,
   Checkbox,
   Divider,
@@ -18,7 +17,6 @@ import {
   InfiniteScroll,
   Modal,
   Space,
-  SpinLoading,
   Tabs,
   Tag,
 } from "antd-mobile";
@@ -108,15 +106,6 @@ export default function HomePage() {
     }
     return data;
   }, [checked, data]);
-
-  // 生产环境没有openid的话返回null
-  if (!isDev() && !localStorage.getItem(CONST_KEYS.OPENID)) {
-    return (
-      <AutoCenter>
-        <SpinLoading />
-      </AutoCenter>
-    );
-  }
 
   return (
     <>
